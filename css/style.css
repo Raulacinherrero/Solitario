@@ -1,0 +1,20 @@
+body {
+    text-align: center;
+    background-color: #fff;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+#mesa {
+    position: absolute;
+    background-color: gray;
+    width: 50%;
+    height: 600px;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
