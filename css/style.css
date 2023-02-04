@@ -10,10 +10,12 @@ body {
 
 /* Estilos container principalmente centrado*/
 #mesa {
+    min-width: 40%;
+    max-height: 50em;
     position: absolute;
     width: 40%;
-    background-color: #1445e6;
     height: 50em;
+    background-color: #1445e6;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
@@ -41,13 +43,17 @@ div.tapete{
 
 /* Dimensiones y color de fondo para el tapete inicial */
 div.tapete#inicial{
+    min-width: 30em;
+    min-height: 30em;
 	width: 30em;
 	height: 30em;			
 	background-color: lightgrey;
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
-div.tapete:not(#inicial){				
+div.tapete:not(#inicial){	
+    min-width: 8.5em;
+    min-height: 11em;			
 	width: 8.5em;
     height: 11em;
 }
@@ -66,9 +72,8 @@ div.tapete.receptor{
 /* Estilos boton */
 #reset {
     left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -85%);
+    transform: translate(-50%, -85%);
     position: absolute;
-    top: 58em;
+    top: 85%;
 }
