@@ -8,13 +8,67 @@ body {
     padding: 0;
 }
 
+/* Estilos container principalmente centrado*/
 #mesa {
     position: absolute;
-    background-color: gray;
-    width: 50%;
-    height: 600px;
+    width: 40%;
+    background-color: #1445e6;
+    height: 50em;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+/* Centrado del título y color */
+h1#titulo {
+	text-align: center;
+	color: #E65014;
+}
+
+h2#marcadores{ 
+	text-align: center; 
+}
+
+/* Todos los tapetes con position relative para que
+   los respectivos mazos (arrays de <img>) puedan
+   posicionarse de manera absoluta respecto a ellos */
+div.tapete{
+	display: inline-block;
+	position: relative;
+	margin: 1em;
+}
+
+/* Dimensiones y color de fondo para el tapete inicial */
+div.tapete#inicial{
+	width: 30em;
+	height: 30em;			
+	background-color: lightgrey;
+}
+
+/* Dimensiones para todos los tapetes salvo el inicial */
+div.tapete:not(#inicial){				
+	width: 8.5em;
+    height: 11em;
+}
+
+/* Color de fondo para el tapete de las cartas sobrantes */
+div.tapete#sobrantes{
+	background-color: lightblue;
+}
+
+/* Color de fondo de los tapetes receptores */
+div.tapete.receptor{
+	background-color: lightgreen;
+}
+
+
+/* Estilos boton */
+#reset {
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 58em;
 }
