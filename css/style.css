@@ -1,4 +1,5 @@
 body {
+    align-items: center;
     text-align: center;
     background-color: #fff;
     color: black;
@@ -10,12 +11,9 @@ body {
 
 /* Estilos container principalmente centrado*/
 #mesa {
-    min-width: 40%;
-    max-height: 50em;
     position: absolute;
     width: 40%;
-    height: 50em;
-    background-color: #1445e6;
+    height: 65%;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
@@ -24,11 +22,16 @@ body {
 
 /* Centrado del título y color */
 h1#titulo {
+    position: relative;
+    left: 50%;
 	text-align: center;
 	color: #E65014;
+    -webkit-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
 }
 
 h2#marcadores{ 
+    display: inline-block;
 	text-align: center; 
 }
 
@@ -36,31 +39,48 @@ h2#marcadores{
    los respectivos mazos (arrays de <img>) puedan
    posicionarse de manera absoluta respecto a ellos */
 div.tapete{
-	display: inline-block;
-	position: relative;
 	margin: 1em;
 }
 
 /* Dimensiones y color de fondo para el tapete inicial */
 div.tapete#inicial{
-    min-width: 30em;
-    min-height: 30em;
-	width: 30em;
+	width: 75%;
 	height: 30em;			
 	background-color: lightgrey;
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
-div.tapete:not(#inicial){	
-    min-width: 8.5em;
-    min-height: 11em;			
-	width: 8.5em;
-    height: 11em;
+div.tapete:not(#inicial){			
+	width: 15%;
+    height: 8em;
 }
 
 /* Color de fondo para el tapete de las cartas sobrantes */
 div.tapete#sobrantes{
+    position: absolute;	
+    width: 15%;
+    height: 8em;
+    left: 80%;
+    top: 62%;
 	background-color: lightblue;
+}
+
+.receptor {
+    position: absolute;
+    top: 88%;
+    left: 0;
+}
+
+#receptor2 {
+    left: 20%;
+}
+
+#receptor3 {
+    left: 40%;
+}
+
+#receptor4 {
+    left: 60%;
 }
 
 /* Color de fondo de los tapetes receptores */
@@ -68,12 +88,11 @@ div.tapete.receptor{
 	background-color: lightgreen;
 }
 
-
 /* Estilos boton */
 #reset {
-    left: 50%;
-    -webkit-transform: translate(-50%, -85%);
-    transform: translate(-50%, -85%);
     position: absolute;
-    top: 85%;
+    left: 50%;
+    top: 98%;
+    -webkit-transform: translate(-50%, -98%);
+    transform: translate(-50%, -98%);
 }
