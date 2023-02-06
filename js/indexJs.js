@@ -142,8 +142,13 @@ function arrancar_tiempo(){
 
 */
 function barajar(mazo) {
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/	
-} // barajar
+	for(var i =0; i <48; i++){//se va a recorrer el array de cartas
+		var cartaSeleccionada =mazo[i];//a cada carta del index se le va asignar una posición en el mazo por orden
+		var cartaAlAzar =Math.floor(Math.random()*48);
+		mazo[i] =mazo[cartaAlAzar];//a cada carta se le va asignar una posición en el mazo al azar
+		mazo[cartaAlAzar] =cartaSeleccionada;//
+	}//fin del for
+}// barajar
 
 
 
@@ -154,9 +159,19 @@ function barajar(mazo) {
 	coordenadas top y left, algun atributo de tipo data-...
 	Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
-function cargar_tapete_inicial(mazo) {
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/	
-} // cargar_tapete_inicial
+function cargar_tapete_inicial(mazo){
+	var formas =['-ova','-cua','-hex','-cir'];//incluimos en un array los símbolos
+        var numerosCartas =['1','2','3','4','5','6','7','8','9','10','11','12'];//incluimos en otro array los números de la cartas
+        var mazo =[];//creamos un array para incluir en él cada carta
+        //cremos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
+        for(var contadorFormas =0; contadorFormas <4; contadorFormas++){//a cada carta le asigna un símbolo
+        	for(var contadorNumerosCartas =0; contadorNumerosCartas <12; contadorNumerosCartas++){//a cada símbolo le asigna un número
+                        mazo.push(numerosCartas [contadorNumerosCartas] +formas[contadorFormas] +'.png');//se va introduciendo cada carta al mazo //PARA LLAMAR DIRECTAMENTE A LA IMAGEN: .png
+                                                                                                                                            //AÑADIR JUSTO DESPUÉS DE CONTADORFORMAS
+		}//fin del for
+        }//fin del for
+        return mazo;//devuelve la baraja creada
+ }// cargar_tapete_inicial
 
 
 /**
