@@ -1,4 +1,7 @@
 body {
+    background-image: url("../imgs/background/fondoMixto.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     align-items: center;
     text-align: center;
     background-color: #fff;
@@ -7,6 +10,18 @@ body {
     font-size: 14px;
     margin: 0;
     padding: 0;
+}
+
+nav {
+    background-image: url("../imgs/background/fondoMixto.png");
+    rotate: 180deg;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 6em;
+}
+
+nav #tituloHeader {
+    rotate: 180deg;
 }
 
 /* Estilos container principalmente centrado*/
