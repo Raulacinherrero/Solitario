@@ -166,7 +166,7 @@ function cargar_tapete_inicial(mazo){
         //cremos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
         for(var contadorFormas =0; contadorFormas <4; contadorFormas++){//a cada carta le asigna un símbolo
         	for(var contadorNumerosCartas =0; contadorNumerosCartas <12; contadorNumerosCartas++){//a cada símbolo le asigna un número
-                        mazo.push(numerosCartas [contadorNumerosCartas] +formas[contadorFormas]);//se va introduciendo cada carta al mazo //PARA LLAMAR DIRECTAMENTE A LA IMAGEN: .png
+                        mazo.push(numerosCartas [contadorNumerosCartas] +formas[contadorFormas] +'.png');//se va introduciendo cada carta al mazo //PARA LLAMAR DIRECTAMENTE A LA IMAGEN: .png
                                                                                                                                             //AÑADIR JUSTO DESPUÉS DE CONTADORFORMAS
 		}//fin del for
         }//fin del for
