@@ -42,24 +42,28 @@ div.tapete{
 	margin: 1em;
 }
 
+div.tapetes_superiores {
+    height: 100%;
+}
+
 /* Dimensiones y color de fondo para el tapete inicial */
 div.tapete#inicial{
-	width: 75%;
-	height: 30em;			
+	width: 75%;	
+    height: 84%;
 	background-color: lightgrey;
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
 div.tapete:not(#inicial){			
 	width: 15%;
-    height: 8em;
+    height: 22%;
 }
 
 /* Color de fondo para el tapete de las cartas sobrantes */
 div.tapete#sobrantes{
     position: absolute;	
     width: 15%;
-    height: 8em;
+    height: 22%;
     left: 80%;
     top: 62%;
 	background-color: lightblue;
