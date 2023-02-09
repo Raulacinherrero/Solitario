@@ -14,42 +14,35 @@
 <body>
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <h1 id="tituloHeader">Solitario</h1>
+            <h1 id="tituloHeader">Solitario</h1> 
+            <img id="logoS" src="imgs/logoSolitario.png" alt="logoSolitario" />    
         </nav>
     </header>
-        <div class="central">
-        <!-- Título principal -->
-
-        <!--/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
-        Rellenar h1 e insertar el logo donde proceda
-        -->
-        <h1 id="titulo">Juego del Solitario</h1>
-        
+        <div class="central">        
         <!-- Siguiente línea donde se indicará el tiempo transcurrido y la cantidad
             de movimientos que se han hecho hasta el momento. Estos números se 
             indicarán en los span internos -->
-        <h2 id="marcadores">
-            <span>Tiempo: <span id="contador_tiempo"></span><!-- Aqui cargaremos el tiempo --></span>
-            <span style="display:inline-block; width:400px"></span>
-            <span>Movimientos: <span id="contador_movimientos" class=""></span><!-- Misma mierda pero con intentos --></span>
-        </h2>
+            <span id="tiempo">Tiempo: <span id="contador_tiempo"></span><!-- Aqui cargaremos el tiempo --></span>
+            <span id="movimiento">Movimientos: <span id="contador_movimientos" class=""></span><!-- Misma mierda pero con intentos --></span>
         <!-- La "mesa" contendrá los 6 tapetes. En la parte superior dos de ellos 
             y en la parte inferior los cuatro restantes. Los contadores de los
             mazos de cartas de cada tapete están indicados oportunamente dentro
             de elementos span -->
-        <div id="mesa">
-            <div class="tapetes_superiores">
-                <div id="inicial" class="tapete"><span id="contador_inicial" class="contador"></span></div>
-                <div id="sobrantes" class="tapete"><span id="contador_sobrantes" class="contador"></span></div>
-            </div>
-            <div id="receptor1" class="tapete receptor"><span id="contador_receptor1" class="contador"><!-- Numerito de la carta en plan las k hay --></span></div>
-            <div id="receptor2" class="tapete receptor"><span id="contador_receptor2" class="contador"></span></div>
-            <div id="receptor3" class="tapete receptor"><span id="contador_receptor3" class="contador"></span></div>
-            <div id="receptor4" class="tapete receptor"><span id="contador_receptor4" class="contador"></span></div>			
-        </div>	
+            <div id="mesa">
+                <div class="tapetes_superiores">
+                    <div id="inicial" class="tapete"><span id="contador_inicial" class="contador"></span></div>
+                    <div id="sobrantes" class="tapete"><span id="contador_sobrantes" class="contador"></span></div>
+                </div>
+                <div id="receptor1" class="tapete receptor"><span id="contador_receptor1" class="contador"><!-- Numerito de la carta en plan las k hay --></span></div>
+                <div id="receptor2" class="tapete receptor"><span id="contador_receptor2" class="contador"></span></div>
+                <div id="receptor3" class="tapete receptor"><span id="contador_receptor3" class="contador"></span></div>
+                <div id="receptor4" class="tapete receptor"><span id="contador_receptor4" class="contador"></span></div>			
+            </div>	
+
+            <div id="pruebacarta"></div>
 
         <!-- Botón de reset que reinicia todo: partida, contadores de tiempo, de movimientos, ... -->
-        <button id="reset" type="button" class="btn btn-danger">Reiniciar</button>
+        <button id="resetBoton" type="button" class="btn btn-danger">Reiniciar</button>
     </div> <!-- class="central" -->
     <script src="js/indexJs.js"></script>
   </body>
