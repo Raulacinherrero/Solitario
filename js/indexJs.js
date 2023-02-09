@@ -18,6 +18,7 @@ let tapete_receptor3 = document.getElementById("receptor3");
 let tapete_receptor4 = document.getElementById("receptor4");
 
 // Mazos
+let mazo = [];
 let mazo_inicial = [];
 let mazo_sobrantes = [];
 let mazo_receptor1 = [];
@@ -42,7 +43,7 @@ let temporizador = null; // manejador del temporizador
 /***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
 
 // Rutina asociada a boton reset: comenzar_juego
-document.getElementById("reset").onclick = comenzar_juego;
+document.getElementById("resetBoton").onclick = comenzar_juego;
 
 // El juego arranca ya al cargar la página: no se espera a reiniciar
 /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
@@ -116,6 +117,7 @@ function arrancar_tiempo() {
       (seg < 10 ? "0" + seg : "" + seg);
     set_contador(cont_tiempo, tiempo);
     segundos++;
+    document.getElementById("contador_tiempo").innerHTML = tiempo;
   };
   segundos = 0;
   hms(); // Primera visualización 00:00:00
@@ -141,9 +143,9 @@ function barajar(mazo) {
   for (var i = 0; i < 48; i++) {
     //se va a recorrer el array de cartas
     var cartaSeleccionada = mazo[i]; //a cada carta del index se le va asignar una posición en el mazo por orden
-    var cartaAlAzar = Math.floor(Math.random() * 48);
-    mazo[i] = mazo[cartaAlAzar]; //a cada carta se le va asignar una posición en el mazo al azar
-    mazo[cartaAlAzar] = cartaSeleccionada; //
+    var cartaAlAzar = Math.floor(Math.random() * 48); //a la variable carta al azar se le asigna un valor aleatorio hasta un máximo de 48
+    mazo[i] = mazo[cartaAlAzar]; //a la carta que se encuentre en el index se le va asignar el valor de la carta al azar
+    mazo[cartaAlAzar] = cartaSeleccionada; //la carta finalmente seleccionada será la que resultó aleatoriamente
   } //fin del for
 } // barajar
 
@@ -170,8 +172,8 @@ function cargar_tapete_inicial(mazo) {
     "11",
     "12",
   ]; //incluimos en otro array los números de la cartas
-  var mazo = []; //creamos un array para incluir en él cada carta
-  //cremos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
+  //var mazo = []; //creamos un array para incluir en él cada carta
+  //creamos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
   for (var contadorFormas = 0; contadorFormas < 4; contadorFormas++) {
     //a cada carta le asigna un símbolo
     for (
@@ -186,14 +188,18 @@ function cargar_tapete_inicial(mazo) {
       //AÑADIR JUSTO DESPUÉS DE CONTADORFORMAS
     } //fin del for
   } //fin del for
-  return mazo; //devuelve la baraja creada
+  //return mazo; //devuelve la baraja creada
 
-  let images = document.getElementById("inicial");
-  for (let i = 1; i <= mazo; i++) {
-    let newimg = document.createElement("img");
+  /* NO TOCAR RAUL TRABAJANDO*/
+
+  /*for (let i = 1; i <= mazo.length; i++) {
+    /*let newimg = document.createElement("img");
     newimg.setAttribute("src", "../imgs/" + i);
-    images.appendChild(newimg);
-  }
+    cartas.appendChild(newimg);
+    let carta = document.createElement("img");
+    carta.setAttribute("src", "/imgs/baraja/" + i);
+    tapete_inicial.appendChild(carta);
+  }*/
 } // cargar_tapete_inicial
 
 /**

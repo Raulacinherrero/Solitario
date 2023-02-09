@@ -6,29 +6,61 @@ body {
     text-align: center;
     background-color: #fff;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-family: "Brush Script MT", cursive;
+    font-size: 1.5em;
     margin: 0;
     padding: 0;
 }
 
 nav {
+    position: relative;
     background-image: url("../imgs/background/fondoOscuro.jpg");
     rotate: 180deg;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 6em;
+    height: 8em;
 }
 
-nav #tituloHeader {
+nav #logoS {
+    position: relative;
     rotate: 180deg;
+    width: 8em;
+    height: 8em;
+    margin-left: 90em;
+    top: -70%;
+}
+
+#tituloHeader {
+    position: relative;
+    font-size: 4em;
+    rotate: 180deg;
+    margin-left: 16em;
+    top: 10%;
+}
+
+#marcadores {
+    font-size: 3em;
+}
+
+#tiempo {
+    position: absolute;
+    top: 20%;
+    margin-left: -40rem;
+    font-size: 3em;
+}
+
+#movimiento {
+    position: absolute;
+    top: 20%;
+    margin-left: 3.6em;
+    font-size: 3em;
 }
 
 /* Estilos container principalmente centrado*/
 #mesa {
     position: absolute;
     width: 40%;
-    height: 65%;
+    height: 40%;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
@@ -65,7 +97,7 @@ div.tapetes_superiores {
 div.tapete#inicial{
 	width: 75%;	
     height: 84%;
-	background-color: lightgrey;
+    border-style: solid;
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
@@ -81,7 +113,7 @@ div.tapete#sobrantes{
     height: 22%;
     left: 80%;
     top: 62%;
-	background-color: lightblue;
+	border-style: solid;
 }
 
 .receptor {
@@ -104,11 +136,11 @@ div.tapete#sobrantes{
 
 /* Color de fondo de los tapetes receptores */
 div.tapete.receptor{
-	background-color: lightgreen;
+	border-style: solid;
 }
 
 /* Estilos boton */
-#reset {
+#resetBoton {
     position: absolute;
     left: 50%;
     top: 98%;
