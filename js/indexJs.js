@@ -9,9 +9,8 @@ let numeros = [9, 10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 5;
-
-// Tapetes				
-let tapete_inicial   = document.getElementById("inicial");
+// Tapetes
+let tapete_inicial = document.getElementById("inicial");
 let tapete_sobrantes = document.getElementById("sobrantes");
 let tapete_receptor1 = document.getElementById("receptor1");
 let tapete_receptor2 = document.getElementById("receptor2");
@@ -19,7 +18,7 @@ let tapete_receptor3 = document.getElementById("receptor3");
 let tapete_receptor4 = document.getElementById("receptor4");
 
 // Mazos
-let mazo_inicial   = [];
+let mazo_inicial = [];
 let mazo_sobrantes = [];
 let mazo_receptor1 = [];
 let mazo_receptor2 = [];
@@ -27,22 +26,21 @@ let mazo_receptor3 = [];
 let mazo_receptor4 = [];
 
 // Contadores de cartas
-let cont_inicial     = document.getElementById("cont_inicial");
-let cont_sobrantes   = document.getElementById("cont_sobrantes");
-let cont_receptor1   = document.getElementById("cont_receptor1");
-let cont_receptor2   = document.getElementById("cont_receptor2");
-let cont_receptor3   = document.getElementById("cont_receptor3");
-let cont_receptor4   = document.getElementById("cont_receptor4");
+let cont_inicial = document.getElementById("cont_inicial");
+let cont_sobrantes = document.getElementById("cont_sobrantes");
+let cont_receptor1 = document.getElementById("cont_receptor1");
+let cont_receptor2 = document.getElementById("cont_receptor2");
+let cont_receptor3 = document.getElementById("cont_receptor3");
+let cont_receptor4 = document.getElementById("cont_receptor4");
 let cont_movimientos = document.getElementById("cont_movimientos");
 
 // Tiempo
-let cont_tiempo  = document.getElementById("cont_tiempo"); // span cuenta tiempo
-let segundos 	 = 0;    // cuenta de segundos
+let cont_tiempo = document.getElementById("cont_tiempo"); // span cuenta tiempo
+let segundos = 0; // cuenta de segundos
 let temporizador = null; // manejador del temporizador
 
 /***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
 
- 
 // Rutina asociada a boton reset: comenzar_juego
 document.getElementById("reset").onclick = comenzar_juego;
 
@@ -51,36 +49,33 @@ document.getElementById("reset").onclick = comenzar_juego;
 
 // Desarrollo del comienzo de juego
 function comenzar_juego() {
-	/* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos 
+  /* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos 
 	elementos serán elementos HTML <img>, siendo cada uno de ellos una carta.
 	Sugerencia: en dos bucles for, bárranse los "palos" y los "números", formando
 	oportunamente el nombre del fichero png que contiene a la carta (recuérdese poner
 	el path correcto en la URL asociada al atributo src de <img>). Una vez creado
 	el elemento img, inclúyase como elemento del array mazo_inicial. 
 	*/
-	
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/	
-    
-	
-	// Barajar
-	barajar(mazo_inicial);
 
-	// Dejar mazo_inicial en tapete inicial
-	cargar_tapete_inicial(mazo_inicial);
+  /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 
-	// Puesta a cero de contadores de mazos
-	set_contador(cont_sobrantes, 0);
-	set_contador(cont_receptor1, 0);
-	set_contador(cont_receptor2, 0);
-	set_contador(cont_receptor3, 0);
-	set_contador(cont_receptor4, 0);
-	set_contador(cont_movimientos, 0);
-	
-	// Arrancar el conteo de tiempo
-	arrancar_tiempo();
+  // Barajar
+  barajar(mazo_inicial);
 
+  // Dejar mazo_inicial en tapete inicial
+  cargar_tapete_inicial(mazo_inicial);
+
+  // Puesta a cero de contadores de mazos
+  set_contador(cont_sobrantes, 0);
+  set_contador(cont_receptor1, 0);
+  set_contador(cont_receptor2, 0);
+  set_contador(cont_receptor3, 0);
+  set_contador(cont_receptor4, 0);
+  set_contador(cont_movimientos, 0);
+
+  // Arrancar el conteo de tiempo
+  arrancar_tiempo();
 } // comenzar_juego
-
 
 /**
 	Se debe encargar de arrancar el temporizador: cada 1000 ms se
@@ -106,25 +101,26 @@ function comenzar_juego() {
 	a clearInterval en su caso.   
 */
 
-function arrancar_tiempo(){
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
-	if (temporizador) clearInterval(temporizador);
-    let hms = function (){
-			let seg = Math.trunc( segundos % 60 );
-			let min = Math.trunc( (segundos % 3600) / 60 );
-			let hor = Math.trunc( (segundos % 86400) / 3600 );
-			let tiempo = ( (hor<10)? "0"+hor : ""+hor ) 
-						+ ":" + ( (min<10)? "0"+min : ""+min )  
-						+ ":" + ( (seg<10)? "0"+seg : ""+seg );
-			set_contador(cont_tiempo, tiempo);
-            segundos++;
-		}
-	segundos = 0;
-    hms(); // Primera visualización 00:00:00
-	temporizador = setInterval(hms, 1000);
-    	
+function arrancar_tiempo() {
+  /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
+  if (temporizador) clearInterval(temporizador);
+  let hms = function () {
+    let seg = Math.trunc(segundos % 60);
+    let min = Math.trunc((segundos % 3600) / 60);
+    let hor = Math.trunc((segundos % 86400) / 3600);
+    let tiempo =
+      (hor < 10 ? "0" + hor : "" + hor) +
+      ":" +
+      (min < 10 ? "0" + min : "" + min) +
+      ":" +
+      (seg < 10 ? "0" + seg : "" + seg);
+    set_contador(cont_tiempo, tiempo);
+    segundos++;
+  };
+  segundos = 0;
+  hms(); // Primera visualización 00:00:00
+  temporizador = setInterval(hms, 1000);
 } // arrancar_tiempo
-
 
 /**
 	Si mazo es un array de elementos <img>, en esta rutina debe ser
@@ -142,15 +138,14 @@ function arrancar_tiempo(){
 
 */
 function barajar(mazo) {
-	for(var i =0; i <48; i++){//se va a recorrer el array de cartas
-		var cartaSeleccionada =mazo[i];//a cada carta del index se le va asignar una posición en el mazo por orden
-		var cartaAlAzar =Math.floor(Math.random()*48);
-		mazo[i] =mazo[cartaAlAzar];//a cada carta se le va asignar una posición en el mazo al azar
-		mazo[cartaAlAzar] =cartaSeleccionada;//
-	}//fin del for
-}// barajar
-
-
+  for (var i = 0; i < 48; i++) {
+    //se va a recorrer el array de cartas
+    var cartaSeleccionada = mazo[i]; //a cada carta del index se le va asignar una posición en el mazo por orden
+    var cartaAlAzar = Math.floor(Math.random() * 48);
+    mazo[i] = mazo[cartaAlAzar]; //a cada carta se le va asignar una posición en el mazo al azar
+    mazo[cartaAlAzar] = cartaSeleccionada; //
+  } //fin del for
+} // barajar
 
 /**
  	En el elemento HTML que representa el tapete inicial (variable tapete_inicial)
@@ -159,34 +154,61 @@ function barajar(mazo) {
 	coordenadas top y left, algun atributo de tipo data-...
 	Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
-function cargar_tapete_inicial(mazo){
-	var formas =['-ova','-cua','-hex','-cir'];//incluimos en un array los símbolos
-        var numerosCartas =['1','2','3','4','5','6','7','8','9','10','11','12'];//incluimos en otro array los números de la cartas
-        var mazo =[];//creamos un array para incluir en él cada carta
-        //cremos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
-        for(var contadorFormas =0; contadorFormas <4; contadorFormas++){//a cada carta le asigna un símbolo
-        	for(var contadorNumerosCartas =0; contadorNumerosCartas <12; contadorNumerosCartas++){//a cada símbolo le asigna un número
-                        mazo.push(numerosCartas [contadorNumerosCartas] +formas[contadorFormas] +'.png');//se va introduciendo cada carta al mazo //PARA LLAMAR DIRECTAMENTE A LA IMAGEN: .png
-                                                                                                                                            //AÑADIR JUSTO DESPUÉS DE CONTADORFORMAS
-		}//fin del for
-        }//fin del for
-        return mazo;//devuelve la baraja creada
- }// cargar_tapete_inicial
+function cargar_tapete_inicial(mazo) {
+  var formas = ["-ova", "-cua", "-hex", "-cir"]; //incluimos en un array los símbolos
+  var numerosCartas = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+  ]; //incluimos en otro array los números de la cartas
+  var mazo = []; //creamos un array para incluir en él cada carta
+  //cremos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
+  for (var contadorFormas = 0; contadorFormas < 4; contadorFormas++) {
+    //a cada carta le asigna un símbolo
+    for (
+      var contadorNumerosCartas = 0;
+      contadorNumerosCartas < 12;
+      contadorNumerosCartas++
+    ) {
+      //a cada símbolo le asigna un número
+      mazo.push(
+        numerosCartas[contadorNumerosCartas] + formas[contadorFormas] + ".png"
+      ); //se va introduciendo cada carta al mazo //PARA LLAMAR DIRECTAMENTE A LA IMAGEN: .png
+      //AÑADIR JUSTO DESPUÉS DE CONTADORFORMAS
+    } //fin del for
+  } //fin del for
+  return mazo; //devuelve la baraja creada
 
+  let images = document.getElementById("inicial");
+  for (let i = 1; i <= mazo; i++) {
+    let newimg = document.createElement("img");
+    newimg.setAttribute("src", "../imgs/" + i);
+    images.appendChild(newimg);
+  }
+} // cargar_tapete_inicial
 
 /**
  	Esta función debe incrementar el número correspondiente al contenido textual
    	del elemento que actúa de contador
 */
-function inc_contador(contador){
-    contador.innerHTML = +contador.innerHTML + 1;
+function inc_contador(contador) {
+  contador.innerHTML = +contador.innerHTML + 1;
 } // inc_contador
 
 /**
 	Idem que anterior, pero decrementando 
 */
-function dec_contador(contador){
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/	
+function dec_contador(contador) {
+  /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/
 } // dec_contador
 
 /**
@@ -194,5 +216,5 @@ function dec_contador(contador){
 	valor especificado
 */
 function set_contador(contador, valor) {
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
+  /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 } // set_contador

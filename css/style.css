@@ -1,11 +1,11 @@
 body {
-    background-image: url("../imgs/background/fondoMixto.png");
+    background-image: url("../imgs/background/fondo2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     align-items: center;
     text-align: center;
     background-color: #fff;
-    color: black;
+    color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     margin: 0;
@@ -13,7 +13,7 @@ body {
 }
 
 nav {
-    background-image: url("../imgs/background/fondoMixto.png");
+    background-image: url("../imgs/background/fondoOscuro.jpg");
     rotate: 180deg;
     background-repeat: no-repeat;
     background-size: cover;
