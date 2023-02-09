@@ -9,7 +9,6 @@ let numeros = [9, 10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 5;
-
 // Tapetes				
 let tapete_inicial   = document.getElementById("inicial");
 let tapete_sobrantes = document.getElementById("sobrantes");
