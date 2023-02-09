@@ -12,6 +12,10 @@ body {
     padding: 0;
 }
 
+header {
+    z-index: 1;
+}
+
 nav {
     position: relative;
     background-image: url("../imgs/background/fondoOscuro.jpg");
@@ -34,28 +38,26 @@ nav #logoS {
     position: relative;
     font-size: 4em;
     rotate: 180deg;
-    margin-left: 16em;
+    margin-left: 17em;
     top: 10%;
 }
 
-#marcadores {
-    font-size: 3em;
-}
-
 #tiempo {
-    position: absolute;
-    top: 20%;
-    margin-left: -40rem;
+    z-index: 2;
+    position: relative;
+    margin-top: 10em;
     font-size: 3em;
-}
 
+}
+/*
 #movimiento {
-    position: absolute;
-    top: 20%;
-    margin-left: 3.6em;
+    position: relative;
+    rotate: 180deg;
+    top: 25%;
+    margin-left: 15em;
     font-size: 3em;
 }
-
+*/
 /* Estilos container principalmente centrado*/
 #mesa {
     position: absolute;
