@@ -158,48 +158,29 @@ function barajar(mazo) {
 */
 function cargar_tapete_inicial(mazo) {
   var formas = ["-ova", "-cua", "-hex", "-cir"]; //incluimos en un array los símbolos
-  var numerosCartas = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-  ]; //incluimos en otro array los números de la cartas
   //var mazo = []; //creamos un array para incluir en él cada carta
   //creamos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
-  for (var contadorFormas = 0; contadorFormas < 4; contadorFormas++) {
+  for (var iFormas = 0; iFormas < 4; iFormas++) {
     //a cada carta le asigna un símbolo
-    for (
-      var contadorNumerosCartas = 0;
-      contadorNumerosCartas < 12;
-      contadorNumerosCartas++
-    ) {
+    for (var iNum = 0; iNum < 12; iNum++) {
       //a cada símbolo le asigna un número
-      mazo.push(
-        numerosCartas[contadorNumerosCartas] + formas[contadorFormas] + ".png"
-      ); //se va introduciendo cada carta al mazo //PARA LLAMAR DIRECTAMENTE A LA IMAGEN: .png
+      mazo.push(iNum + formas[iFormas] + ".png"); //se va introduciendo cada carta al mazo //PARA LLAMAR DIRECTAMENTE A LA IMAGEN: .png
       //AÑADIR JUSTO DESPUÉS DE CONTADORFORMAS
     } //fin del for
   } //fin del for
-  //return mazo; //devuelve la baraja creada
 
-  /* NO TOCAR RAUL TRABAJANDO*/
+  let cartas = ""; //inicializamos el string que luego meterá todas las imagenes en el tapete inicial
 
-  /*for (let i = 1; i <= mazo.length; i++) {
-    /*let newimg = document.createElement("img");
-    newimg.setAttribute("src", "../imgs/" + i);
-    cartas.appendChild(newimg);
-    let carta = document.createElement("img");
-    carta.setAttribute("src", "/imgs/baraja/" + i);
-    tapete_inicial.appendChild(carta);
-  }*/
+  console.log(mazo.length);
+
+  for (let i = 0; i <= mazo.length; i++) {
+    //creamos un for que recorra todas las cartas de mazo
+    if (mazo[i] != undefined) {
+      //en caso de que no reconozca la carta no se añadirá
+      cartas += '<img id="carta" src="/imgs/baraja/' + mazo[i] + '" />'; //añadimos la carta al string
+    }
+  } //fin del for
+  tapete_inicial.innerHTML = cartas; //añadimos todas las cartas en el tapete inicial
 } // cargar_tapete_inicial
 
 /**
