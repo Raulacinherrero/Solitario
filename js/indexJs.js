@@ -166,7 +166,9 @@ function cargar_tapete_inicial(mazo) {
       mazo.push(iNum + formas[iFormas]); //se va introduciendo cada carta al mazo
     } //fin del for
   } //fin del for
+  barajar(mazo);
 
+  //Mostrar cartas en pantalla
   let cartas = ""; //inicializamos el string que luego meterá todas las imagenes en el tapete inicial
 
   for (let i = 0; i <= mazo.length; i++) {
