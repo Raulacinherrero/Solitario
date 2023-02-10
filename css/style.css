@@ -149,3 +149,8 @@ div.tapete.receptor{
     -webkit-transform: translate(-50%, -98%);
     transform: translate(-50%, -98%);
 }
+
+/* css arta provisional by Raúl*/
+#carta {
+    width: 15%;
+}
