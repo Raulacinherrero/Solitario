@@ -175,7 +175,7 @@ function cargar_tapete_inicial(mazo) {
     //creamos un for que recorra todas las cartas de mazo
     if (mazo[i] != undefined) {
       //en caso de que no reconozca la carta no se añadirá
-      cartas += '<img id="carta" src="/imgs/baraja/' + mazo[i] + '.png" />'; //añadimos la carta al string
+      cartas += '<img id="carta" src="./imgs/baraja/' + mazo[i] + '.png" />'; //añadimos la carta al string
     }
   } //fin del for
   tapete_inicial.innerHTML = cartas; //añadimos todas las cartas en el tapete inicial
