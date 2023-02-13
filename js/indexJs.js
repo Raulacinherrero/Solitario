@@ -18,7 +18,6 @@ let tapete_receptor3 = document.getElementById("receptor3");
 let tapete_receptor4 = document.getElementById("receptor4");
 
 // Mazos
-let mazo = [];
 let mazo_inicial = [];
 let mazo_sobrantes = [];
 let mazo_receptor1 = [];
@@ -158,26 +157,25 @@ function barajar(mazo) {
 */
 function cargar_tapete_inicial(mazo) {
   var formas = ["-ova", "-cua", "-hex", "-cir"]; //incluimos en un array los símbolos
-  //var mazo = []; //creamos un array para incluir en él cada carta
+  var mazo = []; //creamos un array para incluir en él cada carta
   //creamos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
   for (var iFormas = 0; iFormas < 4; iFormas++) {
     //a cada carta le asigna un símbolo
-    for (var iNum = 0; iNum < 12; iNum++) {
+    for (var iNum = 1; iNum <= 12; iNum++) {
       //a cada símbolo le asigna un número
-      mazo.push(iNum + formas[iFormas] + ".png"); //se va introduciendo cada carta al mazo //PARA LLAMAR DIRECTAMENTE A LA IMAGEN: .png
-      //AÑADIR JUSTO DESPUÉS DE CONTADORFORMAS
+      mazo.push(iNum + formas[iFormas]); //se va introduciendo cada carta al mazo
     } //fin del for
   } //fin del for
+  barajar(mazo);
 
+  //Mostrar cartas en pantalla
   let cartas = ""; //inicializamos el string que luego meterá todas las imagenes en el tapete inicial
-
-  console.log(mazo.length);
 
   for (let i = 0; i <= mazo.length; i++) {
     //creamos un for que recorra todas las cartas de mazo
     if (mazo[i] != undefined) {
       //en caso de que no reconozca la carta no se añadirá
-      cartas += '<img id="carta" src="/imgs/baraja/' + mazo[i] + '" />'; //añadimos la carta al string
+      cartas += '<img id="carta" src="./imgs/baraja/' + mazo[i] + '.png" />'; //añadimos la carta al string
     }
   } //fin del for
   tapete_inicial.innerHTML = cartas; //añadimos todas las cartas en el tapete inicial
