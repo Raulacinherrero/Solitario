@@ -103,7 +103,7 @@ div.tapete#sobrantes{
     width: 8%;
     height: 22%;
     left: 50%;
-    top: 64%;
+    top: 62%;
 	border-style: solid;
 }
 
@@ -135,13 +135,30 @@ div.tapete.receptor{
 /* Estilos boton */
 #resetBoton {
     position: absolute;
-    left: 50%;
-    top: 98%;
+    left: 87%;
+    top: 87%;
     -webkit-transform: translate(-50%, -98%);
     transform: translate(-50%, -98%);
 }
 
 /* css carta provisional by Raúl*/
-#carta {
+.card {
+    float: left;
     width: 20%;
+    height: 26%;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+.card:nth-child(2) {
+    margin-left: -98px;
+    margin-top: -2px;
+}
+.card:nth-child(3) {
+    margin-left: -98px;
+    margin-top: -4px;
+}
+.card:nth-child(4) {
+    margin-left: -98px;
+    margin-top: -6px;
 }
