@@ -6,7 +6,7 @@ body {
     text-align: center;
     background-color: #fff;
     color: white;
-    font-family: "Brush Script MT", cursive;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.5em;
     margin: 0;
     padding: 0;
@@ -17,66 +17,43 @@ header {
 }
 
 nav {
-    position: relative;
     background-image: url("../imgs/background/fondoOscuro.jpg");
-    rotate: 180deg;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 8em;
+    height: 5em;
 }
 
-nav #logoS {
-    position: relative;
-    rotate: 180deg;
-    width: 8em;
-    height: 8em;
-    margin-left: 90em;
-    top: -70%;
+#logo {
+    width: 6em;
 }
 
-#tituloHeader {
-    position: relative;
-    font-size: 4em;
-    rotate: 180deg;
-    margin-left: 17em;
-    top: 10%;
+h1 {
+    font-size: 3em;
 }
 
 #tiempo {
-    z-index: 2;
     position: relative;
-    margin-top: 10em;
-    font-size: 3em;
+    margin-left: 2em;
+    font-size: 2em;
+    top: 12%;
+}
 
-}
-/*
-#movimiento {
+#movimientos {
     position: relative;
-    rotate: 180deg;
-    top: 25%;
-    margin-left: 15em;
-    font-size: 3em;
+    margin-left: 2em;
+    font-size: 2em;
+    top: 12%;
 }
-*/
+
 /* Estilos container principalmente centrado*/
 #mesa {
     position: absolute;
-    width: 40%;
-    height: 40%;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
-/* Centrado del título y color */
-h1#titulo {
-    position: relative;
-    left: 50%;
-	text-align: center;
-	color: #E65014;
-    -webkit-transform: translate(-50%, 0%);
-    transform: translate(-50%, 0%);
+    width: 30%;
+    height: 60%;
+    left: 10%;
+    top: 30%;
+    -webkit-transform: translate(-10%, -30%);
+    transform: translate(-10%, -30%);
 }
 
 h2#marcadores{ 
@@ -84,9 +61,6 @@ h2#marcadores{
 	text-align: center; 
 }
 
-/* Todos los tapetes con position relative para que
-   los respectivos mazos (arrays de <img>) puedan
-   posicionarse de manera absoluta respecto a ellos */
 div.tapete{
 	margin: 1em;
 }
@@ -95,45 +69,62 @@ div.tapetes_superiores {
     height: 100%;
 }
 
+.numero_receptor {
+    position: absolute;
+    left: 90%;
+    top: 100%;
+    -webkit-transform: translate(-90%, -100%);
+    transform: translate(-90%, -100%);
+}
+
 /* Dimensiones y color de fondo para el tapete inicial */
 div.tapete#inicial{
-	width: 75%;	
-    height: 84%;
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    left: 80%;
+    top: 50%;
+    -webkit-transform: translate(-80%, -30%);
+    transform: translate(-80%, -30%);
+	width: 100%;	
+    height: 100%;
     border-style: solid;
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
 div.tapete:not(#inicial){			
-	width: 15%;
+	width: 8%;
     height: 22%;
 }
 
 /* Color de fondo para el tapete de las cartas sobrantes */
 div.tapete#sobrantes{
     position: absolute;	
-    width: 15%;
+    width: 8%;
     height: 22%;
-    left: 80%;
+    left: 50%;
     top: 62%;
 	border-style: solid;
 }
 
 .receptor {
     position: absolute;
-    top: 88%;
-    left: 0;
+    top: 24%;
+    width: 5%;
+    height: 10%;
+    left: 50%;
 }
 
 #receptor2 {
-    left: 20%;
+    left: 60%;
 }
 
 #receptor3 {
-    left: 40%;
+    left: 70%;
 }
 
 #receptor4 {
-    left: 60%;
+    left: 80%;
 }
 
 /* Color de fondo de los tapetes receptores */
@@ -144,8 +135,30 @@ div.tapete.receptor{
 /* Estilos boton */
 #resetBoton {
     position: absolute;
-    left: 50%;
-    top: 98%;
+    left: 87%;
+    top: 87%;
     -webkit-transform: translate(-50%, -98%);
     transform: translate(-50%, -98%);
+}
+
+/* css carta provisional by Raúl*/
+.card {
+    float: left;
+    width: 20%;
+    height: 26%;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+.card:nth-child(2) {
+    margin-left: -98px;
+    margin-top: -2px;
+}
+.card:nth-child(3) {
+    margin-left: -98px;
+    margin-top: -4px;
+}
+.card:nth-child(4) {
+    margin-left: -98px;
+    margin-top: -6px;
 }
