@@ -211,3 +211,21 @@ function set_contador(contador, valor) {
   contador.innerHTML = valor;
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 } // set_contador
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+
+  var carta = document.getElementById(data);
+  carta.removeAttribute("style");
+  carta.setAttribute("draggable", "false");
+}
