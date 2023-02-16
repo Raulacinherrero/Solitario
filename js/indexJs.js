@@ -3,9 +3,9 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-//let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-let numeros = [9, 10, 11, 12];
+//let numeros = [9, 10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 5;
@@ -26,12 +26,12 @@ let mazo_receptor3 = [];
 let mazo_receptor4 = [];
 
 // Contadores de cartas
-let cont_inicial = document.getElementById("cont_inicial");
-let cont_sobrantes = document.getElementById("cont_sobrantes");
-let cont_receptor1 = document.getElementById("cont_receptor1");
-let cont_receptor2 = document.getElementById("cont_receptor2");
-let cont_receptor3 = document.getElementById("cont_receptor3");
-let cont_receptor4 = document.getElementById("cont_receptor4");
+let cont_inicial = document.getElementById("contador_inicial");
+let cont_sobrantes = document.getElementById("contador_sobrantes");
+let cont_receptor1 = document.getElementById("contador_receptor1");
+let cont_receptor2 = document.getElementById("contador_receptor2");
+let cont_receptor3 = document.getElementById("contador_receptor3");
+let cont_receptor4 = document.getElementById("contador_receptor4");
 let cont_movimientos = document.getElementById("contador_movimientos");
 
 // Tiempo
@@ -50,14 +50,16 @@ document.getElementById("resetBoton").onclick = comenzar_juego;
 // Desarrollo del comienzo de juego
 function comenzar_juego() {
   /* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos 
-	elementos serán elementos HTML <img>, siendo cada uno de ellos una carta.
-	Sugerencia: en dos bucles for, bárranse los "palos" y los "números", formando
-	oportunamente el nombre del fichero png que contiene a la carta (recuérdese poner
-	el path correcto en la URL asociada al atributo src de <img>). Una vez creado
-	el elemento img, inclúyase como elemento del array mazo_inicial. 
-	*/
+  elementos serán elementos HTML <img>, siendo cada uno de ellos una carta.
+  Sugerencia: en dos bucles for, bárranse los "palos" y los "números", formando
+  oportunamente el nombre del fichero png que contiene a la carta (recuérdese poner
+  el path correcto en la URL asociada al atributo src de <img>). Una vez creado
+  el elemento img, inclúyase como elemento del array mazo_inicial. 
+  */
 
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
+
+  crearMazo();
 
   // Barajar
   barajar(mazo_inicial);
@@ -78,27 +80,27 @@ function comenzar_juego() {
 } // comenzar_juego
 
 /**
-	Se debe encargar de arrancar el temporizador: cada 1000 ms se
-	debe ejecutar una función que a partir de la cuenta autoincrementada
-	de los segundos (segundos totales) visualice el tiempo oportunamente con el 
-	format hh:mm:ss en el contador adecuado.
+  Se debe encargar de arrancar el temporizador: cada 1000 ms se
+  debe ejecutar una función que a partir de la cuenta autoincrementada
+  de los segundos (segundos totales) visualice el tiempo oportunamente con el 
+  format hh:mm:ss en el contador adecuado.
 
-	Para descomponer los segundos en horas, minutos y segundos pueden emplearse
-	las siguientes igualdades:
+  Para descomponer los segundos en horas, minutos y segundos pueden emplearse
+  las siguientes igualdades:
 
-	segundos = truncar (   segundos_totales % (60)                 )
-	minutos  = truncar ( ( segundos_totales % (60*60) )     / 60   )
-	horas    = truncar ( ( segundos_totales % (60*60*24)) ) / 3600 )
+  segundos = truncar (   segundos_totales % (60)                 )
+  minutos  = truncar ( ( segundos_totales % (60*60) )     / 60   )
+  horas    = truncar ( ( segundos_totales % (60*60*24)) ) / 3600 )
 
-	donde % denota la operación módulo (resto de la división entre los operadores)
+  donde % denota la operación módulo (resto de la división entre los operadores)
 
-	Así, por ejemplo, si la cuenta de segundos totales es de 134 s, entonces será:
-	   00:02:14
+  Así, por ejemplo, si la cuenta de segundos totales es de 134 s, entonces será:
+     00:02:14
 
-	Como existe la posibilidad de "resetear" el juego en cualquier momento, hay que 
-	evitar que exista más de un temporizador simultáneo, por lo que debería guardarse
-	el resultado de la llamada a setInterval en alguna variable para llamar oportunamente
-	a clearInterval en su caso.   
+  Como existe la posibilidad de "resetear" el juego en cualquier momento, hay que 
+  evitar que exista más de un temporizador simultáneo, por lo que debería guardarse
+  el resultado de la llamada a setInterval en alguna variable para llamar oportunamente
+  a clearInterval en su caso.   
 */
 
 function arrancar_tiempo() {
@@ -116,7 +118,6 @@ function arrancar_tiempo() {
       (seg < 10 ? "0" + seg : "" + seg);
     set_contador(cont_tiempo, tiempo);
     segundos++;
-    document.getElementById("contador_tiempo").innerHTML = tiempo;
   };
   segundos = 0;
   hms(); // Primera visualización 00:00:00
@@ -124,20 +125,30 @@ function arrancar_tiempo() {
 } // arrancar_tiempo
 
 /**
-	Si mazo es un array de elementos <img>, en esta rutina debe ser
-	reordenado aleatoriamente. Al ser un array un objeto, se pasa
-	por referencia, de modo que si se altera el orden de dicho array
-	dentro de la rutina, esto aparecerá reflejado fuera de la misma.
-	Para reordenar el array puede emplearse el siguiente pseudo código:
+  Si mazo es un array de elementos <img>, en esta rutina debe ser
+  reordenado aleatoriamente. Al ser un array un objeto, se pasa
+  por referencia, de modo que si se altera el orden de dicho array
+  dentro de la rutina, esto aparecerá reflejado fuera de la misma.
+  Para reordenar el array puede emplearse el siguiente pseudo código:
 
-	- Recorramos con i todos los elementos del array
-		- Sea j un indice cuyo valor sea un número aleatorio comprendido 
-			entre 0 y la longitud del array menos uno. Este valor aleatorio
-			puede conseguirse, por ejemplo con la instrucción JavaScript
-				Math.floor( Math.random() * LONGITUD_DEL_ARRAY );
-		- Se intercambia el contenido de la posición i-ésima con el de la j-ésima
+  - Recorramos con i todos los elementos del array
+    - Sea j un indice cuyo valor sea un número aleatorio comprendido 
+      entre 0 y la longitud del array menos uno. Este valor aleatorio
+      puede conseguirse, por ejemplo con la instrucción JavaScript
+        Math.floor( Math.random() * LONGITUD_DEL_ARRAY );
+    - Se intercambia el contenido de la posición i-ésima con el de la j-ésima
 
 */
+
+function crearMazo() {
+  for (var i = 0; i < palos.length; i++) {
+    for (var j = 0; j < numeros.length; j++) {
+      mazo_inicial.push(`${numeros[j]}-${palos[i]}`);
+    }
+  }
+  barajar(mazo_inicial);
+}
+
 function barajar(mazo) {
   for (var i = 0; i < 48; i++) {
     //se va a recorrer el array de cartas
@@ -149,57 +160,54 @@ function barajar(mazo) {
 } // barajar
 
 /**
- 	En el elemento HTML que representa el tapete inicial (variable tapete_inicial)
-	se deben añadir como hijos todos los elementos <img> del array mazo.
-	Antes de añadirlos, se deberían fijar propiedades como la anchura, la posición,
-	coordenadas top y left, algun atributo de tipo data-...
-	Al final se debe ajustar el contador de cartas a la cantidad oportuna
+    En el elemento HTML que representa el tapete inicial (variable tapete_inicial)
+  se deben añadir como hijos todos los elementos <img> del array mazo.
+  Antes de añadirlos, se deberían fijar propiedades como la anchura, la posición,
+  coordenadas top y left, algun atributo de tipo data-...
+  Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
 function cargar_tapete_inicial(mazo) {
-  var formas = ["-ova", "-cua", "-hex", "-cir"]; //incluimos en un array los símbolos
-  var mazo = []; //creamos un array para incluir en él cada carta
-  //creamos un bucle en el cual vamos a ir introduciendo la combinación de números y símbolos de cada carta
-  for (var iFormas = 0; iFormas < 4; iFormas++) {
-    //a cada carta le asigna un símbolo
-    for (var iNum = 1; iNum <= 12; iNum++) {
-      //a cada símbolo le asigna un número
-      mazo.push(iNum + formas[iFormas]); //se va introduciendo cada carta al mazo
-    } //fin del for
-  } //fin del for
-  barajar(mazo);
-
-  //Mostrar cartas en pantalla
-  let cartas = ""; //inicializamos el string que luego meterá todas las imagenes en el tapete inicial
-
-  for (let i = 0; i <= mazo.length; i++) {
-    //creamos un for que recorra todas las cartas de mazo
-    if (mazo[i] != undefined) {
-      //en caso de que no reconozca la carta no se añadirá
-      cartas += '<img class="card" src="./imgs/baraja/' + mazo[i] + '.png" />'; //añadimos la carta al string
+  let cartas = document.getElementById("inicial");
+  for (var i = 0; i < mazo.length; i++) {
+    //document.getElementById("inicial").innerHTML = `<img src="imagenes/baraja/${mazo[i]}.png" class="cartas"/>`;
+    let nuevaCarta = document.createElement("img");
+    nuevaCarta.setAttribute("src", `imgs/baraja/${mazo[i]}.png`);
+    nuevaCarta.setAttribute("class", `card`);
+    if (i === mazo.length - 1) {
+      nuevaCarta.setAttribute("draggable", `true`);
+    } else {
+      nuevaCarta.setAttribute("draggable", `false`);
     }
-  } //fin del for
-  tapete_inicial.innerHTML = cartas; //añadimos todas las cartas en el tapete inicial
+    nuevaCarta.setAttribute("ondragstart", `drag(event)`);
+    nuevaCarta.setAttribute("id", `${mazo[i]}`);
+    nuevaCarta.style.top = paso + "px"
+    nuevaCarta.style.left = paso + "px"
+    cartas.appendChild(nuevaCarta);
+    paso = paso + 5;
+  }
 } // cargar_tapete_inicial
 
 /**
- 	Esta función debe incrementar el número correspondiente al contenido textual
-   	del elemento que actúa de contador
+    Esta función debe incrementar el número correspondiente al contenido textual
+      del elemento que actúa de contador
 */
 function inc_contador(contador) {
   contador.innerHTML = +contador.innerHTML + 1;
 } // inc_contador
 
 /**
-	Idem que anterior, pero decrementando 
+  Idem que anterior, pero decrementando 
 */
 function dec_contador(contador) {
+  contador.innerHTML = +contador.innerHTML - 1;
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/
 } // dec_contador
 
 /**
-	Similar a las anteriores, pero ajustando la cuenta al
-	valor especificado
+  Similar a las anteriores, pero ajustando la cuenta al
+  valor especificado
 */
 function set_contador(contador, valor) {
+  contador.innerHTML = valor;
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 } // set_contador
