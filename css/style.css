@@ -141,7 +141,7 @@ div.tapete.receptor{
     transform: translate(-50%, -98%);
 }
 
-/* css carta provisional by Raúl*/
+/* css carta provisional by Raúl
 .card {
     float: left;
     width: 20%;
@@ -161,4 +161,9 @@ div.tapete.receptor{
 .card:nth-child(4) {
     margin-left: -98px;
     margin-top: -6px;
+}*/
+
+.card {
+	width: 100px;
+	position: absolute;
 }
