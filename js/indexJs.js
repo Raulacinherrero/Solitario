@@ -228,4 +228,6 @@ function drop(ev) {
   var carta = document.getElementById(data);
   carta.removeAttribute("style");
   carta.setAttribute("draggable", "false");
+
+  tapete_inicial.lastChild.setAttribute("draggable", "true");
 }
