@@ -8,7 +8,8 @@ let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 //let numeros = [9, 10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
-let paso = 5;
+let paso = 1;
+
 // Tapetes
 let tapete_inicial = document.getElementById("inicial");
 let tapete_sobrantes = document.getElementById("sobrantes");
@@ -26,6 +27,7 @@ let mazo_receptor3 = [];
 let mazo_receptor4 = [];
 
 // Contadores de cartas
+
 let cont_inicial = document.getElementById("contador_inicial");
 let cont_sobrantes = document.getElementById("contador_sobrantes");
 let cont_receptor1 = document.getElementById("contador_receptor1");
@@ -33,6 +35,7 @@ let cont_receptor2 = document.getElementById("contador_receptor2");
 let cont_receptor3 = document.getElementById("contador_receptor3");
 let cont_receptor4 = document.getElementById("contador_receptor4");
 let cont_movimientos = document.getElementById("contador_movimientos");
+
 
 // Tiempo
 let cont_tiempo = document.getElementById("contador_tiempo"); // span cuenta tiempo
@@ -46,7 +49,7 @@ document.getElementById("resetBoton").onclick = comenzar_juego;
 
 // El juego arranca ya al cargar la página: no se espera a reiniciar
 /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
-
+comenzar_juego();
 // Desarrollo del comienzo de juego
 function comenzar_juego() {
   /* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos 
@@ -59,6 +62,8 @@ function comenzar_juego() {
 
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 
+  limpiar();
+
   crearMazo();
 
   // Barajar
@@ -68,6 +73,7 @@ function comenzar_juego() {
   cargar_tapete_inicial(mazo_inicial);
 
   // Puesta a cero de contadores de mazos
+
   set_contador(cont_sobrantes, 0);
   set_contador(cont_receptor1, 0);
   set_contador(cont_receptor2, 0);
@@ -75,8 +81,11 @@ function comenzar_juego() {
   set_contador(cont_receptor4, 0);
   set_contador(cont_movimientos, 0);
 
+
   // Arrancar el conteo de tiempo
   arrancar_tiempo();
+
+  actualizarContadores();
 } // comenzar_juego
 
 /**
@@ -172,7 +181,7 @@ function cargar_tapete_inicial(mazo) {
     //document.getElementById("inicial").innerHTML = `<img src="imagenes/baraja/${mazo[i]}.png" class="cartas"/>`;
     let nuevaCarta = document.createElement("img");
     nuevaCarta.setAttribute("src", `imgs/baraja/${mazo[i]}.png`);
-    nuevaCarta.setAttribute("class", `card`);
+    nuevaCarta.setAttribute("class", `carta`);
     if (i === mazo.length - 1) {
       nuevaCarta.setAttribute("draggable", `true`);
     } else {
@@ -180,37 +189,12 @@ function cargar_tapete_inicial(mazo) {
     }
     nuevaCarta.setAttribute("ondragstart", `drag(event)`);
     nuevaCarta.setAttribute("id", `${mazo[i]}`);
-    nuevaCarta.style.top = paso + "px"
-    nuevaCarta.style.left = paso + "px"
+    nuevaCarta.style.top = paso + "%"
+    nuevaCarta.style.left = paso + "%"
     cartas.appendChild(nuevaCarta);
-    paso = paso + 5;
+    paso++;
   }
 } // cargar_tapete_inicial
-
-/**
-    Esta función debe incrementar el número correspondiente al contenido textual
-      del elemento que actúa de contador
-*/
-function inc_contador(contador) {
-  contador.innerHTML = +contador.innerHTML + 1;
-} // inc_contador
-
-/**
-  Idem que anterior, pero decrementando 
-*/
-function dec_contador(contador) {
-  contador.innerHTML = +contador.innerHTML - 1;
-  /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/
-} // dec_contador
-
-/**
-  Similar a las anteriores, pero ajustando la cuenta al
-  valor especificado
-*/
-function set_contador(contador, valor) {
-  contador.innerHTML = valor;
-  /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
-} // set_contador
 
 function allowDrop(ev) {
   ev.preventDefault();
@@ -228,10 +212,88 @@ function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
-
   var carta = document.getElementById(data);
   carta.removeAttribute("style");
+  carta.setAttribute("style", "top: 13%; left: 16%;");
   carta.setAttribute("draggable", "false");
-  carta.setAttribute("ondragover","notAllowDrop(event)");
+  carta.setAttribute("ondragover", "notAllowDrop(event)");
   tapete_inicial.lastChild.setAttribute("draggable", "true");
+  mazo_inicial.pop();
+  switch (ev.target.id) {
+    case "receptor1":
+      mazo_receptor1.push(carta.id);
+      //inc_contador(cont_receptor1);
+      break;
+    case "receptor2":
+      mazo_receptor2.push(carta.id);
+      //inc_contador(cont_receptor2);
+      break;
+    case "receptor3":
+      mazo_receptor3.push(carta.id);
+      //inc_contador(cont_receptor3);
+      break;
+    case "receptor4":
+      mazo_receptor4.push(carta.id);
+      //inc_contador(cont_receptor4);
+      break;
+    case "sobrantes":
+      mazo_sobrantes.push(carta.id);
+      //inc_contador(cont_sobrantes);
+      break;
+  }
+  inc_contador(cont_movimientos);
+  actualizarContadores();
+}
+
+
+function limpiar() {
+  while (tapete_inicial.childNodes[2]) {
+    tapete_inicial.removeChild(tapete_inicial.childNodes[2]);
+  }
+  while (tapete_receptor1.childNodes[2]) {
+    tapete_receptor1.removeChild(tapete_receptor1.childNodes[2]);
+  }
+  while (tapete_receptor2.childNodes[2]) {
+    tapete_receptor2.removeChild(tapete_receptor2.childNodes[2]);
+  }
+  while (tapete_receptor3.childNodes[2]) {
+    tapete_receptor3.removeChild(tapete_receptor3.childNodes[2]);
+  }
+  while (tapete_receptor4.childNodes[2]) {
+    tapete_receptor4.removeChild(tapete_receptor4.childNodes[2]);
+  }
+  while (tapete_sobrantes.childNodes[2]) {
+    tapete_sobrantes.removeChild(tapete_sobrantes.childNodes[2]);
+  }
+  mazo_inicial = [];
+  mazo_receptor1 = [];
+  mazo_receptor2 = [];
+  mazo_receptor3 = [];
+  mazo_receptor4 = [];
+  mazo_sobrantes = [];
+  paso = 1;
+  actualizarContadores();
+}
+
+
+function inc_contador(contador) {
+  contador.innerHTML = +contador.innerHTML + 1;
+} // inc_contador
+
+function dec_contador(contador) {
+  contador.innerHTML = +contador.innerHTML - 1;
+} // dec_contador
+
+function set_contador(contador, valor) {
+  contador.innerHTML = valor;
+} // set_contador o set_tiempo
+
+function actualizarContadores() {
+
+  set_contador(cont_inicial, mazo_inicial.length);
+  set_contador(cont_sobrantes, mazo_sobrantes.length);
+  set_contador(cont_receptor1, mazo_receptor1.length);
+  set_contador(cont_receptor2, mazo_receptor2.length);
+  set_contador(cont_receptor3, mazo_receptor3.length);
+  set_contador(cont_receptor4, mazo_receptor4.length);
 }
