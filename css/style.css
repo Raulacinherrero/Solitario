@@ -163,7 +163,12 @@ div.tapete.receptor{
     margin-top: -6px;
 }*/
 
-.card {
-	width: 100px;
+.tapetes_superiores .tapete .carta {
+	width: 17.5%;
+	position: absolute;
+}
+
+.div_tapetes .tapete .carta {
+	width: 68%;
 	position: absolute;
 }
