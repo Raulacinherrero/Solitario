@@ -5,7 +5,7 @@ let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
 let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-//let numeros = [9, 10, 11, 12];
+//let numeros = [10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 1;
@@ -176,7 +176,6 @@ function barajar(mazo) {
   Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
 function cargar_tapete_inicial() {
-  let cartas = document.getElementById("inicial");
   for (var i = 0; i < mazo_inicial.length; i++) {
     let nuevaCarta = document.createElement("img");
     nuevaCarta.setAttribute("src", `imgs/baraja/${mazo_inicial[i]}.png`);
@@ -190,7 +189,7 @@ function cargar_tapete_inicial() {
     nuevaCarta.setAttribute("id", `${mazo_inicial[i]}`);
     nuevaCarta.style.top = paso + "%"
     nuevaCarta.style.left = paso + "%"
-    cartas.appendChild(nuevaCarta);
+    tapete_inicial.appendChild(nuevaCarta);
     paso++;
   }
 } // cargar_tapete_inicial
@@ -210,36 +209,97 @@ function drag(ev) {
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
   var carta = document.getElementById(data);
-  carta.removeAttribute("style");
-  carta.setAttribute("draggable", "false");
-  carta.setAttribute("ondragover", "notAllowDrop(event)");
-  tapete_inicial.lastChild.setAttribute("draggable", "true");
-  mazo_inicial.pop();
+  var tapeteSeleccionado = document.getElementById(ev.target.id);
+  var mazoSeleccionado;
   switch (ev.target.id) {
     case "receptor1":
-      mazo_receptor1.push(carta.id);
-      //inc_contador(cont_receptor1);
+      mazoSeleccionado = mazo_receptor1;
       break;
     case "receptor2":
-      mazo_receptor2.push(carta.id);
-      //inc_contador(cont_receptor2);
+      mazoSeleccionado = mazo_receptor2;
       break;
     case "receptor3":
-      mazo_receptor3.push(carta.id);
-      //inc_contador(cont_receptor3);
+      mazoSeleccionado = mazo_receptor3;
       break;
     case "receptor4":
-      mazo_receptor4.push(carta.id);
-      //inc_contador(cont_receptor4);
+      mazoSeleccionado = mazo_receptor4;
       break;
     case "sobrantes":
+      ev.target.appendChild(document.getElementById(data));
+      carta.removeAttribute("style");
+      carta.setAttribute("draggable", "false");
+      carta.setAttribute("ondragover", "notAllowDrop(event)");
+      tapete_inicial.lastChild.setAttribute("draggable", "true");
+      mazo_inicial.pop();
       mazo_sobrantes.push(carta.id);
-      //inc_contador(cont_sobrantes);
+      inc_contador(cont_movimientos);
       break;
   }
-  if(tapete_inicial.childElementCount == 1){
+  console.log("simbolo carta = " + (carta.id.split("-")[1]));
+  console.log("simbolo que hay encima = " + (tapeteSeleccionado.lastChild.id.split("-")[1]));
+  if (tapeteSeleccionado != tapete_sobrantes) {
+    if (parseInt(carta.id.split("-")[0]) == (13 - parseInt(tapeteSeleccionado.childElementCount))) {
+      if (tapeteSeleccionado.childElementCount != 1) {
+        if (tapeteSeleccionado.lastChild.id.split("-")[1] == "hex" || tapeteSeleccionado.lastChild.id.split("-")[1] == "cir") {
+          if (carta.id.split("-")[1] == "ova" || carta.id.split("-")[1] == "cua") {
+            ev.target.appendChild(document.getElementById(data));
+            carta.removeAttribute("style");
+            carta.setAttribute("draggable", "false");
+            carta.setAttribute("ondragover", "notAllowDrop(event)");
+            tapete_inicial.lastChild.setAttribute("draggable", "true");
+            mazo_inicial.pop();
+            mazoSeleccionado.push(carta.id);
+            inc_contador(cont_movimientos);
+          }
+        } else {
+          if (carta.id.split("-")[1] == "hex" || carta.id.split("-")[1] == "cir") {
+            ev.target.appendChild(document.getElementById(data));
+            carta.removeAttribute("style");
+            carta.setAttribute("draggable", "false");
+            carta.setAttribute("ondragover", "notAllowDrop(event)");
+            tapete_inicial.lastChild.setAttribute("draggable", "true");
+            mazo_inicial.pop();
+            mazoSeleccionado.push(carta.id);
+            inc_contador(cont_movimientos);
+          }
+        }
+        if (tapeteSeleccionado.lastChild.id.split("-")[1] == "ova" || tapeteSeleccionado.lastChild.id.split("-")[1] == "cua") {
+          if (carta.id.split("-")[1] == "hex" || carta.id.split("-")[1] == "cir") {
+            ev.target.appendChild(document.getElementById(data));
+            carta.removeAttribute("style");
+            carta.setAttribute("draggable", "false");
+            carta.setAttribute("ondragover", "notAllowDrop(event)");
+            tapete_inicial.lastChild.setAttribute("draggable", "true");
+            mazo_inicial.pop();
+            mazoSeleccionado.push(carta.id);
+            inc_contador(cont_movimientos);
+          }
+        } else {
+          if (carta.id.split("-")[1] == "ova" || carta.id.split("-")[1] == "cua") {
+            ev.target.appendChild(document.getElementById(data));
+            carta.removeAttribute("style");
+            carta.setAttribute("draggable", "false");
+            carta.setAttribute("ondragover", "notAllowDrop(event)");
+            tapete_inicial.lastChild.setAttribute("draggable", "true");
+            mazo_inicial.pop();
+            mazoSeleccionado.push(carta.id);
+            inc_contador(cont_movimientos);
+          }
+        }
+      } else {
+        ev.target.appendChild(document.getElementById(data));
+        carta.removeAttribute("style");
+        carta.setAttribute("draggable", "false");
+        carta.setAttribute("ondragover", "notAllowDrop(event)");
+        tapete_inicial.lastChild.setAttribute("draggable", "true");
+        mazo_inicial.pop();
+        mazoSeleccionado.push(carta.id);
+        inc_contador(cont_movimientos);
+      }
+    }
+  }
+  if (tapete_inicial.childElementCount == 1) {
     barajar(mazo_sobrantes);
     mazo_inicial = mazo_inicial.concat(mazo_sobrantes);
     mazo_sobrantes = [];
@@ -249,10 +309,8 @@ function drop(ev) {
       tapete_sobrantes.removeChild(tapete_sobrantes.childNodes[2]);
     }
   }
-  inc_contador(cont_movimientos);
   actualizarContadores();
 }
-
 
 function limpiar() {
   while (tapete_inicial.childNodes[2]) {
@@ -273,16 +331,8 @@ function limpiar() {
   while (tapete_sobrantes.childNodes[2]) {
     tapete_sobrantes.removeChild(tapete_sobrantes.childNodes[2]);
   }
-  mazo_inicial = [];
-  mazo_receptor1 = [];
-  mazo_receptor2 = [];
-  mazo_receptor3 = [];
-  mazo_receptor4 = [];
-  mazo_sobrantes = [];
   paso = 1;
-  actualizarContadores();
 }
-
 
 function inc_contador(contador) {
   contador.innerHTML = +contador.innerHTML + 1;
