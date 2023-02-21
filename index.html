@@ -41,11 +41,11 @@
             </span>
           </li>
           <li>
-            <span id="tiempo">Tiempo: <span id="contador_tiempo"></span><!-- Aqui cargaremos el tiempo --></span>
+            <span id="tiempo">Tiempo: <span id="contador_tiempo"><!-- Aqui cargaremos el tiempo --></span></span>
           </li>
           <li>
-            <span id="movimientos">Movientos: <span
-                id="contador_movimientos"></span><!-- Aqui cargaremos el movimiento --></span>
+            <span id="movimientos">Movimientos:
+              <span id="contador_movimientos"><!-- Aqui cargaremos el movimiento --></span></span>
           </li>
         </ul>
       </div>
@@ -62,27 +62,25 @@
     <div id="mesa">
       <div class="tapetes_superiores">
         <div id="inicial" class="tapete">
-          <span id="contador_inicial" class="contador"></span>
+          <span id="contador_inicial" class="contador"><!-- Aqui cargaremos el numero de cartas --></span>
         </div>
       </div>
     </div>
     <div class="div_tapetes">
       <div id="receptor1" class="tapete receptor" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <span id="contador_receptor1" class="contador"><span
-            class="numero_receptor">0</span><!-- Numerito de la carta en plan las k hay --></span>
+        <span id="contador_receptor1" class="contador" ondragover="notAllowDrop(event)"><!-- Aqui cargaremos el numero de cartas --></span>
       </div>
       <div id="receptor2" class="tapete receptor" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <span id="contador_receptor2" class="contador">
-          <span class="numero_receptor">0</span></span>
+        <span id="contador_receptor2" class="contador" ondragover="notAllowDrop(event)"><!-- Aqui cargaremos el numero de cartas --></span>
       </div>
       <div id="receptor3" class="tapete receptor" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <span id="contador_receptor3" class="contador"><span class="numero_receptor">0</span></span>
+        <span id="contador_receptor3" class="contador" ondragover="notAllowDrop(event)"><!-- Aqui cargaremos el numero de cartas --></span>
       </div>
       <div id="receptor4" class="tapete receptor" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <span id="contador_receptor4" class="contador"><span class="numero_receptor">0</span></span>
+        <span id="contador_receptor4" class="contador" ondragover="notAllowDrop(event)"><!-- Aqui cargaremos el numero de cartas --></span>
       </div>
       <div id="sobrantes" class="tapete" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <span id="contador_sobrantes" class="contador"><span class="numero_receptor">0</span></span>
+        <span id="contador_sobrantes" class="contador" ondragover="notAllowDrop(event)"><!-- Aqui cargaremos el numero de cartas --></span>
       </div>
     </div>
 
