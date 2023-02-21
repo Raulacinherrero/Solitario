@@ -169,6 +169,8 @@ div.tapete.receptor{
 }
 
 .div_tapetes .tapete .carta {
+    	top: 13%;
+    	left: 16%;
 	width: 68%;
 	position: absolute;
 }
