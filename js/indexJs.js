@@ -70,7 +70,7 @@ function comenzar_juego() {
   barajar(mazo_inicial);
 
   // Dejar mazo_inicial en tapete inicial
-  cargar_tapete_inicial(mazo_inicial);
+  cargar_tapete_inicial();
 
   // Puesta a cero de contadores de mazos
 
@@ -159,10 +159,10 @@ function crearMazo() {
 }
 
 function barajar(mazo) {
-  for (var i = 0; i < 48; i++) {
+  for (var i = 0; i < mazo.length; i++) {
     //se va a recorrer el array de cartas
     var cartaSeleccionada = mazo[i]; //a cada carta del index se le va asignar una posición en el mazo por orden
-    var cartaAlAzar = Math.floor(Math.random() * 48); //a la variable carta al azar se le asigna un valor aleatorio hasta un máximo de 48
+    var cartaAlAzar = Math.floor(Math.random() * mazo.length); //a la variable carta al azar se le asigna un valor aleatorio hasta un máximo de 48
     mazo[i] = mazo[cartaAlAzar]; //a la carta que se encuentre en el index se le va asignar el valor de la carta al azar
     mazo[cartaAlAzar] = cartaSeleccionada; //la carta finalmente seleccionada será la que resultó aleatoriamente
   } //fin del for
@@ -175,20 +175,19 @@ function barajar(mazo) {
   coordenadas top y left, algun atributo de tipo data-...
   Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
-function cargar_tapete_inicial(mazo) {
+function cargar_tapete_inicial() {
   let cartas = document.getElementById("inicial");
-  for (var i = 0; i < mazo.length; i++) {
-    //document.getElementById("inicial").innerHTML = `<img src="imagenes/baraja/${mazo[i]}.png" class="cartas"/>`;
+  for (var i = 0; i < mazo_inicial.length; i++) {
     let nuevaCarta = document.createElement("img");
-    nuevaCarta.setAttribute("src", `imgs/baraja/${mazo[i]}.png`);
+    nuevaCarta.setAttribute("src", `imgs/baraja/${mazo_inicial[i]}.png`);
     nuevaCarta.setAttribute("class", `carta`);
-    if (i === mazo.length - 1) {
+    if (i === mazo_inicial.length - 1) {
       nuevaCarta.setAttribute("draggable", `true`);
     } else {
       nuevaCarta.setAttribute("draggable", `false`);
     }
     nuevaCarta.setAttribute("ondragstart", `drag(event)`);
-    nuevaCarta.setAttribute("id", `${mazo[i]}`);
+    nuevaCarta.setAttribute("id", `${mazo_inicial[i]}`);
     nuevaCarta.style.top = paso + "%"
     nuevaCarta.style.left = paso + "%"
     cartas.appendChild(nuevaCarta);
@@ -240,6 +239,16 @@ function drop(ev) {
       mazo_sobrantes.push(carta.id);
       //inc_contador(cont_sobrantes);
       break;
+  }
+  if(tapete_inicial.childElementCount == 1){
+    barajar(mazo_sobrantes);
+    mazo_inicial = mazo_inicial.concat(mazo_sobrantes);
+    mazo_sobrantes = [];
+    paso = 1;
+    cargar_tapete_inicial();
+    while (tapete_sobrantes.childNodes[2]) {
+      tapete_sobrantes.removeChild(tapete_sobrantes.childNodes[2]);
+    }
   }
   inc_contador(cont_movimientos);
   actualizarContadores();
