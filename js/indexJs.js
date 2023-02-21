@@ -213,7 +213,6 @@ function drop(ev) {
   ev.target.appendChild(document.getElementById(data));
   var carta = document.getElementById(data);
   carta.removeAttribute("style");
-  carta.setAttribute("style", "top: 13%; left: 16%;");
   carta.setAttribute("draggable", "false");
   carta.setAttribute("ondragover", "notAllowDrop(event)");
   tapete_inicial.lastChild.setAttribute("draggable", "true");
