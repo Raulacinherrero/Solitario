@@ -3,15 +3,16 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+//let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-//let numeros = [10, 11, 12];
+let numeros = [10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 1;
 
 var barajacartas = new Audio('./sounds/barajacartas.mp3');
 var bruh = new Audio('./sounds/bruh.mp3');
+var victoria = new Audio('./sounds/Bring_Me_The_Horizon_-_Can_You_Feel_My_Heart.mp3');
 
 // Tapetes
 let tapete_inicial = document.getElementById("inicial");
@@ -55,6 +56,7 @@ document.getElementById("resetBoton").onclick = comenzar_juego;
 comenzar_juego();
 // Desarrollo del comienzo de juego
 function comenzar_juego() {
+
   /* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos 
   elementos serán elementos HTML <img>, siendo cada uno de ellos una carta.
   Sugerencia: en dos bucles for, bárranse los "palos" y los "números", formando
@@ -65,6 +67,10 @@ function comenzar_juego() {
 
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 
+  victoria.pause();
+  victoria.currentTime = 0;
+  tapete_inicial.removeAttribute("style");
+  tapete_sobrantes.removeAttribute("style");
 
   barajacartas.play();
 
@@ -233,12 +239,7 @@ function drop(ev) {
       break;
     case "sobrantes":
       ev.target.appendChild(document.getElementById(data));
-      carta.removeAttribute("style");
-      carta.setAttribute("draggable", "false");
-      carta.setAttribute("ondragover", "notAllowDrop(event)");
-      tapete_inicial.lastChild.setAttribute("draggable", "true");
-      mazo_inicial.pop();
-      mazo_sobrantes.push(carta.id);
+      moverCarta(carta, mazo_sobrantes);
       inc_contador(cont_movimientos);
       break;
   }
@@ -248,62 +249,26 @@ function drop(ev) {
         if (tapeteSeleccionado.lastChild.id.split("-")[1] == "hex" || tapeteSeleccionado.lastChild.id.split("-")[1] == "cir") {
           if (carta.id.split("-")[1] == "ova" || carta.id.split("-")[1] == "cua") {
             ev.target.appendChild(document.getElementById(data));
-            carta.removeAttribute("style");
-            carta.setAttribute("draggable", "false");
-            carta.setAttribute("ondragover", "notAllowDrop(event)");
-            tapete_inicial.lastChild.setAttribute("draggable", "true");
-            mazo_inicial.pop();
-            mazoSeleccionado.push(carta.id);
+            moverCarta(carta, mazoSeleccionado);
             inc_contador(cont_movimientos);
-          }
-        } else {
-          if (carta.id.split("-")[1] == "hex" || carta.id.split("-")[1] == "cir") {
-            ev.target.appendChild(document.getElementById(data));
-            carta.removeAttribute("style");
-            carta.setAttribute("draggable", "false");
-            carta.setAttribute("ondragover", "notAllowDrop(event)");
-            tapete_inicial.lastChild.setAttribute("draggable", "true");
-            mazo_inicial.pop();
-            mazoSeleccionado.push(carta.id);
-            inc_contador(cont_movimientos);
+          } else {
+            hasFallado();
           }
         }
         if (tapeteSeleccionado.lastChild.id.split("-")[1] == "ova" || tapeteSeleccionado.lastChild.id.split("-")[1] == "cua") {
           if (carta.id.split("-")[1] == "hex" || carta.id.split("-")[1] == "cir") {
             ev.target.appendChild(document.getElementById(data));
-            carta.removeAttribute("style");
-            carta.setAttribute("draggable", "false");
-            carta.setAttribute("ondragover", "notAllowDrop(event)");
-            tapete_inicial.lastChild.setAttribute("draggable", "true");
-            mazo_inicial.pop();
-            mazoSeleccionado.push(carta.id);
-            inc_contador(cont_movimientos);
-          }
-        } else {
-          if (carta.id.split("-")[1] == "ova" || carta.id.split("-")[1] == "cua") {
-            ev.target.appendChild(document.getElementById(data));
-            carta.removeAttribute("style");
-            carta.setAttribute("draggable", "false");
-            carta.setAttribute("ondragover", "notAllowDrop(event)");
-            tapete_inicial.lastChild.setAttribute("draggable", "true");
-            mazo_inicial.pop();
-            mazoSeleccionado.push(carta.id);
+            moverCarta(carta, mazoSeleccionado);
             inc_contador(cont_movimientos);
           }
         }
       } else {
         ev.target.appendChild(document.getElementById(data));
-        carta.removeAttribute("style");
-        carta.setAttribute("draggable", "false");
-        carta.setAttribute("ondragover", "notAllowDrop(event)");
-        tapete_inicial.lastChild.setAttribute("draggable", "true");
-        mazo_inicial.pop();
-        mazoSeleccionado.push(carta.id);
+        moverCarta(carta, mazoSeleccionado);
         inc_contador(cont_movimientos);
       }
-    }else{
-      bruh.play();
-      alert("¿No sabes jugar al solitario?\nLos números de las cartas van del 12 al 1\nNo olvides que despues de una carta gris va una naranja y viceversa\n\nSuerte jugando\n;)")
+    } else {
+      hasFallado();
     }
   }
   if (tapete_inicial.childElementCount == 1) {
@@ -317,6 +282,18 @@ function drop(ev) {
     }
   }
   actualizarContadores();
+  if (mazo_inicial.length == 0 && mazo_sobrantes.length == 0) {
+    hasGanado();
+  }
+}
+
+function moverCarta(carta_, mazoSeleccionado_) {
+  carta_.removeAttribute("style");
+  carta_.setAttribute("draggable", "false");
+  carta_.setAttribute("ondragover", "notAllowDrop(event)");
+  tapete_inicial.lastChild.setAttribute("draggable", "true");
+  mazo_inicial.pop();
+  mazoSeleccionado_.push(carta_.id);
 }
 
 function limpiar() {
@@ -360,11 +337,22 @@ function set_contador(contador, valor) {
 } // set_contador o set_tiempo
 
 function actualizarContadores() {
-
   set_contador(cont_inicial, mazo_inicial.length);
   set_contador(cont_sobrantes, mazo_sobrantes.length);
   set_contador(cont_receptor1, mazo_receptor1.length);
   set_contador(cont_receptor2, mazo_receptor2.length);
   set_contador(cont_receptor3, mazo_receptor3.length);
   set_contador(cont_receptor4, mazo_receptor4.length);
+}
+
+function hasFallado() {
+  bruh.play();
+  alert("¿No sabes jugar al solitario?\nLos números de las cartas van del 12 al 1\nNo olvides que despues de una carta gris va una naranja y viceversa\n\nSigue intentándolo\n;)")
+}
+
+function hasGanado() {
+  victoria.play();
+  tapete_inicial.setAttribute("style","background-image: url('./imgs/gifs/chad.gif'); background-position: center 25%; background-size: cover; ")
+  tapete_sobrantes.setAttribute("style","background-image: url('./imgs/gifs/pingu.gif'); background-position: center 25%; background-size: cover; ")
+  alert("¡¡¡Enhorabuena!!!\nHas ganado la partida :D\n\nPulsa el botón de reiniciar para jugar otra partida :)")
 }
