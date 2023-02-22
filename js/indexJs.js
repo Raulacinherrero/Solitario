@@ -9,6 +9,7 @@ let numeros = [10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 1;
+let tapete_origen;
 
 var barajacartas = new Audio('./sounds/barajacartas.mp3');
 var bruh = new Audio('./sounds/bruh.mp3');
@@ -214,6 +215,8 @@ function allowDrop(ev) {
 
 function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
+  var data = ev.dataTransfer.getData("text");
+  tapete_origen = document.getElementById(document.getElementById(data).parentElement.id);
 }
 
 function drop(ev) {
@@ -288,9 +291,21 @@ function drop(ev) {
   if (movimientoValido == true) {
     tapeteSeleccionado.appendChild(document.getElementById(data));
     carta.removeAttribute("style");
-    carta.setAttribute("draggable", "false");
-    tapete_inicial.lastChild.setAttribute("draggable", "true");
-    mazo_inicial.pop();
+    if (tapeteSeleccionado != tapete_sobrantes) {
+      carta.setAttribute("draggable", "false");
+    }
+    switch (tapete_origen.id) {
+      case "inicial":
+        tapete_inicial.lastChild.setAttribute("draggable", "true");
+        mazo_inicial.pop();
+        break;
+      case "sobrantes":
+        if (tapete_sobrantes.childElementCount != 1) {
+          tapete_sobrantes.lastChild.setAttribute("draggable", "true");
+        }
+        mazo_sobrantes.pop();
+        break;
+    }
     mazoSeleccionado.push(carta.id);
     inc_contador(cont_movimientos);
   }
@@ -368,5 +383,5 @@ function hasGanado() {
   victoria.play();
   tapete_inicial.setAttribute("style", "background-image: url('./imgs/gifs/chad.gif'); background-position: center 25%; background-size: cover; ")
   tapete_sobrantes.setAttribute("style", "background-image: url('./imgs/gifs/pingu.gif'); background-position: center 25%; background-size: cover; ")
-  alert("¡¡¡Enhorabuena!!!\nHas ganado la partida :D\n\nPulsa el botón de Reiniciar para jugar otra partida :)")
+  alert("¡¡¡Enhorabuena!!!\nHas ganado la partida :D\n\nTiempo: "+cont_tiempo.textContent+"\nMovimientos: "+cont_movimientos.textContent+"\n\nPulsa el botón de Reiniciar para jugar otra partida :)")
 }
