@@ -10,6 +10,9 @@ let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 1;
 
+var barajacartas = new Audio('./sounds/barajacartas.mp3');
+var bruh = new Audio('./sounds/bruh.mp3');
+
 // Tapetes
 let tapete_inicial = document.getElementById("inicial");
 let tapete_sobrantes = document.getElementById("sobrantes");
@@ -61,6 +64,9 @@ function comenzar_juego() {
   */
 
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
+
+
+  barajacartas.play();
 
   limpiar();
 
@@ -236,8 +242,6 @@ function drop(ev) {
       inc_contador(cont_movimientos);
       break;
   }
-  console.log("simbolo carta = " + (carta.id.split("-")[1]));
-  console.log("simbolo que hay encima = " + (tapeteSeleccionado.lastChild.id.split("-")[1]));
   if (tapeteSeleccionado != tapete_sobrantes) {
     if (parseInt(carta.id.split("-")[0]) == (13 - parseInt(tapeteSeleccionado.childElementCount))) {
       if (tapeteSeleccionado.childElementCount != 1) {
@@ -297,6 +301,9 @@ function drop(ev) {
         mazoSeleccionado.push(carta.id);
         inc_contador(cont_movimientos);
       }
+    }else{
+      bruh.play();
+      alert("¿No sabes jugar al solitario?\nLos números de las cartas van del 12 al 1\nNo olvides que despues de una carta gris va una naranja y viceversa\n\nSuerte jugando\n;)")
     }
   }
   if (tapete_inicial.childElementCount == 1) {
@@ -331,6 +338,12 @@ function limpiar() {
   while (tapete_sobrantes.childNodes[2]) {
     tapete_sobrantes.removeChild(tapete_sobrantes.childNodes[2]);
   }
+  mazo_inicial = [];
+  mazo_sobrantes = [];
+  mazo_receptor1 = [];
+  mazo_receptor2 = [];
+  mazo_receptor3 = [];
+  mazo_receptor4 = [];
   paso = 1;
 }
 
