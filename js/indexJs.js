@@ -212,10 +212,6 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-function notAllowDrop(ev) {
-  ev.stopPropagation();
-}
-
 function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
 }
@@ -293,7 +289,6 @@ function drop(ev) {
     tapeteSeleccionado.appendChild(document.getElementById(data));
     carta.removeAttribute("style");
     carta.setAttribute("draggable", "false");
-    //carta.setAttribute("ondragover", "notAllowDrop(event)");
     tapete_inicial.lastChild.setAttribute("draggable", "true");
     mazo_inicial.pop();
     mazoSeleccionado.push(carta.id);
@@ -314,15 +309,6 @@ function drop(ev) {
     hasGanado();
   }
 }
-
-// function moverCarta(carta_, mazoSeleccionado_) {
-//   carta_.removeAttribute("style");
-//   carta_.setAttribute("draggable", "false");
-//   carta_.setAttribute("ondragover", "notAllowDrop(event)");
-//   tapete_inicial.lastChild.setAttribute("draggable", "true");
-//   mazo_inicial.pop();
-//   mazoSeleccionado_.push(carta_.id);
-// }
 
 function limpiar() {
   while (tapete_inicial.childNodes[2]) {
