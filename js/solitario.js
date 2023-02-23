@@ -3,9 +3,9 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-//let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-let numeros = [10, 11, 12];
+//let numeros = [10, 11, 12];
 
 // paso (top y left) en % de una carta a la siguiente en un mazo
 let paso = 1;
@@ -71,11 +71,11 @@ function comenzar_juego() {
 
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 
-  //control de si la musica de la victoria sigue sonando para pararla
+  //control de si la musica de la victoria sigue sonando
   if (victoria.currentTime != 0) {
-    victoria.pause();
-    victoria.currentTime = 0;
-    tapete_inicial.removeAttribute("style");
+    victoria.pause();//paramos la música
+    victoria.currentTime = 0;//inicializamos su tiempo
+    tapete_inicial.removeAttribute("style");//quitamos los dos fondos
     tapete_sobrantes.removeAttribute("style");
   }
 
@@ -432,16 +432,16 @@ function actualizarContadores() {
 
 function hasFallado() {
   //función que se ejecuta cuando el jugador falla
-  bruh.play();
-  alert(
+  bruh.play();//suena el sonido del fallo
+  alert(//muestra las normas del solitario al jugador
     "¿No sabes jugar al solitario?\nLos números de las cartas van del 12 al 1\nNo olvides que despues de una carta gris va una naranja y viceversa\n\nSigue intentándolo\n;)"
   );
 }
 
 function hasGanado() {
   //función que se ejecuta cuando el jugador gana
-  victoria.play();
-  tapete_inicial.setAttribute(
+  victoria.play();//suena la musica de la victoria
+  tapete_inicial.setAttribute(//añadimos los gifs a sus fondos correspondientes
     "style",
     "background-image: url('./imgs/gifs/chad.gif'); background-position: center 25%; background-size: cover; "
   );
@@ -449,7 +449,7 @@ function hasGanado() {
     "style",
     "background-image: url('./imgs/gifs/pingu.gif'); background-position: center 25%; background-size: cover; "
   );
-  alert(
+  alert(//muestra el mensaje de victoria al jugador
     "¡¡¡Enhorabuena!!!\nHas ganado la partida :D\n\nTiempo: " +
       cont_tiempo.textContent +
       "\nMovimientos: " +
