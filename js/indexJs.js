@@ -9,6 +9,7 @@ let numeros = [10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 1;
+let tapete_origen;
 
 var barajacartas = new Audio('./sounds/barajacartas.mp3');
 var bruh = new Audio('./sounds/bruh.mp3');
@@ -67,10 +68,12 @@ function comenzar_juego() {
 
   /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 
-  victoria.pause();
-  victoria.currentTime = 0;
-  tapete_inicial.removeAttribute("style");
-  tapete_sobrantes.removeAttribute("style");
+  if (victoria.currentTime != 0) {
+    victoria.pause();
+    victoria.currentTime = 0;
+    tapete_inicial.removeAttribute("style");
+    tapete_sobrantes.removeAttribute("style");
+  }
 
   barajacartas.play();
 
@@ -210,21 +213,26 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-function notAllowDrop(ev) {
-  ev.stopPropagation();
-}
-
 function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
+  var data = ev.dataTransfer.getData("text");
+  tapete_origen = document.getElementById(document.getElementById(data).parentElement.id);
 }
 
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   var carta = document.getElementById(data);
-  var tapeteSeleccionado = document.getElementById(ev.target.id);
+  var movimientoValido = false;
+  var target_;
+  if (document.getElementById(ev.target.id).parentElement.id == "padre_tapetes") {
+    target_ = ev.target.id;
+  } else {
+    target_ = document.getElementById(ev.target.id).parentElement.id;
+  }
+  var tapeteSeleccionado = document.getElementById(target_);
   var mazoSeleccionado;
-  switch (ev.target.id) {
+  switch (target_) {
     case "receptor1":
       mazoSeleccionado = mazo_receptor1;
       break;
@@ -238,38 +246,68 @@ function drop(ev) {
       mazoSeleccionado = mazo_receptor4;
       break;
     case "sobrantes":
-      ev.target.appendChild(document.getElementById(data));
-      moverCarta(carta, mazo_sobrantes);
-      inc_contador(cont_movimientos);
+      mazoSeleccionado = mazo_sobrantes;
+      movimientoValido = true;
       break;
   }
   if (tapeteSeleccionado != tapete_sobrantes) {
     if (parseInt(carta.id.split("-")[0]) == (13 - parseInt(tapeteSeleccionado.childElementCount))) {
       if (tapeteSeleccionado.childElementCount != 1) {
-        if (tapeteSeleccionado.lastChild.id.split("-")[1] == "hex" || tapeteSeleccionado.lastChild.id.split("-")[1] == "cir") {
-          if (carta.id.split("-")[1] == "ova" || carta.id.split("-")[1] == "cua") {
-            ev.target.appendChild(document.getElementById(data));
-            moverCarta(carta, mazoSeleccionado);
-            inc_contador(cont_movimientos);
-          } else {
-            hasFallado();
-          }
-        }
-        if (tapeteSeleccionado.lastChild.id.split("-")[1] == "ova" || tapeteSeleccionado.lastChild.id.split("-")[1] == "cua") {
-          if (carta.id.split("-")[1] == "hex" || carta.id.split("-")[1] == "cir") {
-            ev.target.appendChild(document.getElementById(data));
-            moverCarta(carta, mazoSeleccionado);
-            inc_contador(cont_movimientos);
-          }
+        switch (tapeteSeleccionado.lastChild.id.split("-")[1]) {
+          case "hex":
+          case "cir":
+            switch (carta.id.split("-")[1]) {
+              case "hex":
+              case "cir":
+                hasFallado();
+                break;
+              case "ova":
+              case "cua":
+                movimientoValido = true;
+                break;
+            }
+            break;
+          case "ova":
+          case "cua":
+            switch (carta.id.split("-")[1]) {
+              case "hex":
+              case "cir":
+                movimientoValido = true;
+                break;
+              case "ova":
+              case "cua":
+                hasFallado();
+                break;
+            }
+            break;
         }
       } else {
-        ev.target.appendChild(document.getElementById(data));
-        moverCarta(carta, mazoSeleccionado);
-        inc_contador(cont_movimientos);
+        movimientoValido = true;
       }
     } else {
       hasFallado();
     }
+  }
+  if (movimientoValido == true) {
+    tapeteSeleccionado.appendChild(document.getElementById(data));
+    carta.removeAttribute("style");
+    if (tapeteSeleccionado != tapete_sobrantes) {
+      carta.setAttribute("draggable", "false");
+    }
+    switch (tapete_origen.id) {
+      case "inicial":
+        tapete_inicial.lastChild.setAttribute("draggable", "true");
+        mazo_inicial.pop();
+        break;
+      case "sobrantes":
+        if (tapete_sobrantes.childElementCount != 1) {
+          tapete_sobrantes.lastChild.setAttribute("draggable", "true");
+        }
+        mazo_sobrantes.pop();
+        break;
+    }
+    mazoSeleccionado.push(carta.id);
+    inc_contador(cont_movimientos);
   }
   if (tapete_inicial.childElementCount == 1) {
     barajar(mazo_sobrantes);
@@ -285,15 +323,6 @@ function drop(ev) {
   if (mazo_inicial.length == 0 && mazo_sobrantes.length == 0) {
     hasGanado();
   }
-}
-
-function moverCarta(carta_, mazoSeleccionado_) {
-  carta_.removeAttribute("style");
-  carta_.setAttribute("draggable", "false");
-  carta_.setAttribute("ondragover", "notAllowDrop(event)");
-  tapete_inicial.lastChild.setAttribute("draggable", "true");
-  mazo_inicial.pop();
-  mazoSeleccionado_.push(carta_.id);
 }
 
 function limpiar() {
@@ -352,7 +381,7 @@ function hasFallado() {
 
 function hasGanado() {
   victoria.play();
-  tapete_inicial.setAttribute("style","background-image: url('./imgs/gifs/chad.gif'); background-position: center 25%; background-size: cover; ")
-  tapete_sobrantes.setAttribute("style","background-image: url('./imgs/gifs/pingu.gif'); background-position: center 25%; background-size: cover; ")
-  alert("¡¡¡Enhorabuena!!!\nHas ganado la partida :D\n\nPulsa el botón de reiniciar para jugar otra partida :)")
+  tapete_inicial.setAttribute("style", "background-image: url('./imgs/gifs/chad.gif'); background-position: center 25%; background-size: cover; ")
+  tapete_sobrantes.setAttribute("style", "background-image: url('./imgs/gifs/pingu.gif'); background-position: center 25%; background-size: cover; ")
+  alert("¡¡¡Enhorabuena!!!\nHas ganado la partida :D\n\nTiempo: "+cont_tiempo.textContent+"\nMovimientos: "+cont_movimientos.textContent+"\n\nPulsa el botón de Reiniciar para jugar otra partida :)")
 }
