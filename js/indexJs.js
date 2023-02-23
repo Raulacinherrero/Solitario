@@ -3,9 +3,9 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-//let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-let numeros = [10, 11, 12];
+//let numeros = [10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 1;
@@ -191,6 +191,7 @@ function barajar(mazo) {
   Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
 function cargar_tapete_inicial() {
+  //
   for (var i = 0; i < mazo_inicial.length; i++) {
     let nuevaCarta = document.createElement("img");
     nuevaCarta.setAttribute("src", `imgs/baraja/${mazo_inicial[i]}.png`);

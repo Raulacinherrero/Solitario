@@ -141,6 +141,18 @@ div.tapete.receptor{
     transform: translate(-50%, -98%);
 }
 
+.contador {
+    position: relative;
+    left: 43%;
+    top: 90%;
+}
+
+.contadorT {
+    position: relative;
+    left: 35%;
+    top: 75%;
+}
+
 /* css carta provisional by Raúl
 .card {
     float: left;

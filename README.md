@@ -1,4 +1,4 @@
 # Solitario
 https://solitario-ten.vercel.app
 
-https://prod.liveshare.vsengsaas.visualstudio.com/join?EC7D33FA3654E5D1CB2F176314C0655822B3 meteros en local
+https://prod.liveshare.vsengsaas.visualstudio.com/join?0771D5C7C985754D111B63AE520299DFED6B meteros en local
