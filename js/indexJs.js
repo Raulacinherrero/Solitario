@@ -191,6 +191,7 @@ function barajar(mazo) {
   Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
 function cargar_tapete_inicial() {
+  //
   for (var i = 0; i < mazo_inicial.length; i++) {
     let nuevaCarta = document.createElement("img");
     nuevaCarta.setAttribute("src", `imgs/baraja/${mazo_inicial[i]}.png`);
